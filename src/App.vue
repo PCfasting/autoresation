@@ -1,14 +1,31 @@
 <template>
-  <div id="app">
+  <v-content>
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/login">About</router-link>
+      <router-link v-if="user == ''" to="/login">Вход</router-link>
+      <router-link v-else :to="'/user/' + user.login">{{ user.name }}</router-link> | 
+      <router-link to="/registration">Регистрация</router-link>
     </div>
-    <router-view v-on:login="updateUser"/>
-  </div>
+    <v-container fluid>
+      <router-view v-bind:value="user" @auth="authStart" />
+    </v-container>
+  </v-content>
 </template>
 
-
+<script>
+export default {
+  data(){
+    return{
+      user: ''
+    }
+  },
+  methods: {
+    authStart($data) {
+      this.user = $data;
+    }
+  }
+}
+</script>
 
 <style>
 #app {

@@ -39,15 +39,21 @@ export default {
         .then(response => {
           let users = response.data;
           let found = false;
+          let user;
           for (let index in users){
             if(this.login == users[index].login && this.password == users[index].password){
               this.$router.push('/users/' + this.myId);
               found = true;
+              user = response.users[index];
               break;
             }
           }
-          if(!found)
-            window.alert('Неверный логин и пароль')
+
+          if(found){
+            this.$$emit('auth', user)
+          }else{
+            window.alert('Неверный логин и пароль');
+          }
         })
     }
   }
