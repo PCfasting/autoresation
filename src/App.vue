@@ -4,9 +4,11 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/login">About</router-link>
     </div>
-    <router-view/>
+    <router-view v-on:login="updateUser"/>
   </div>
 </template>
+
+
 
 <style>
 #app {
